@@ -1,93 +1,95 @@
 # Mixtape 4.0 · Inauguración de la cabina
 
-**Ticket MIX-402 · Tarea de cierre del Módulo 1 · Estación Umbral, Hangar 3**
-**Para:** Mecánico de hangar · **De:** Nova · **Tiempo estimado:** 50 a 60 minutos
+**Ticket MIX-402 · Proyecto de cierre del Módulo 1 · Estación Umbral, Hangar 3**
+**Para:** Mecánico de hangar · **De:** Nova · **Tiempo estimado:** 60 minutos · **Puntaje máximo:** 50
 
 ## La misión
 
-Cuatro semanas después, Mixtape tiene tarjetas con props, un reproductor con estado, un formulario con validación y una cola de pedidos. La cabina de la Estación Umbral se inaugura esta semana y Nova quiere la versión final: la playlist completa tiene que poder cambiar mientras la app corre.
+Cuatro semanas después, Mixtape tiene tarjetas con props, un reproductor con estado, un formulario con validación y una cola de pedidos. Funciona, pero se ve igual en todas las estaciones: es la Mixtape de Nova.
 
-Esta tarea reúne las cuatro misiones del módulo: props y listas (Misión 35), estado y formularios (Misión 36) y listas que cambian (Misión 37). Trabajas sobre tu Mixtape de la clase de hoy, no sobre un proyecto nuevo.
+Esta semana se inaugura tu cabina en la Estación Umbral. Nova te entrega las llaves: tú decides el nombre, el logo, los colores y la temática. También le sumas una pieza hecha por ti, un componente de React que no existía. Cuando alguien abra tu Mixtape, tiene que notar que es tuya.
 
-## Antes de empezar
+Trabajas sobre tu Mixtape de la clase de hoy (con la cola de pedidos funcionando). No es un proyecto nuevo.
 
-- Parte del Mixtape que dejaste al terminar la clase (con la cola de pedidos funcionando).
-- Los estilos nuevos ya están en `src/estilos-l4.css`: no tienes que escribir CSS. Las clases que vas a usar se nombran en cada ticket.
-- Abre `App.jsx` y mira cómo están `pedidos`, `agregar`, `borrar` y `marcar`. La playlist va a funcionar igual.
-- El reproductor de abajo sigue usando la lista original de la estación. No lo toques.
+## Ticket 1 · Identidad de tu cabina (15 puntos)
 
-## Ticket 1 · Playlist viva (35 puntos)
+1. **Temática:** elige una (por ejemplo: retro arcade, espacio profundo, bosque, neón, minimalista en blanco y negro). Escríbela en una línea al inicio de tu `README.md`.
+2. **Nombre:** crea en `App.jsx` una constante con el nombre de tu cabina y pásala por props a `Encabezado`, que la muestra en el título en lugar de "Mixtape".
+3. **Logo:** agrega al encabezado una `img` con la clase `cabina-logo`, un `alt` que describa la imagen y tu propio logo guardado en `public/`.
+4. **Paleta:** cambia `--cabina-acento` y `--cabina-fondo` en `src/estilos-l4.css` y ajusta en `index.css` los colores del fondo general y de los títulos para que combinen con tu temática. Puedes cambiar la tipografía si quieres.
 
-1. En `App.jsx`, crea un estado `playlist` que empiece con el array `canciones` importado. Usa `playlist` en lugar de `canciones` en el buscador (`visibles`), en la condición de playlist vacía y en el total del encabezado.
-2. Agrega a cada tarjeta un botón con la clase `boton-favorita`. Cuando la canción es favorita, el `className` es `boton-favorita activa` y el texto dice "Quitar de favoritas"; si no, dice "Marcar favorita". Pon los botones dentro de un `div` con la clase `tarjeta-acciones` al final de la tarjeta.
-3. Escribe en `App.jsx` la función `alternarFavorita(id)`. Cambia `favorita` al valor contrario solo en la canción con ese `id`. La tarjeta recibe `id` y `onFavorita` por props y llama `onFavorita(id)` desde el botón.
-4. Muestra en el encabezado cuántas canciones son favoritas, con el texto "N favoritas" y la clase `contador-favoritas`. El número se calcula de `playlist` en cada pintado, sin otro estado.
+**Listo cuando:** puesta al lado de la Mixtape de la clase, tu cabina se reconoce como otra app: nombre, logo, colores y temática propios, y todo el texto se lee bien sobre el fondo.
 
-**Listo cuando:** al hacer clic en el botón, la etiqueta de la tarjeta y su botón cambian al instante, y el contador sube o baja. Con las canciones originales debe empezar en "3 favoritas".
+## Ticket 2 · Tu componente (15 puntos)
 
-## Ticket 2 · Quitar y agregar (35 puntos)
+Crea un componente nuevo en `src/components/`, con su propio archivo, y úsalo en `App.jsx`. Lo que haga lo decides tú, pero tiene que cumplir esto:
 
-1. Agrega a cada tarjeta un botón con la clase `boton-quitar` y el texto "Quitar", al lado del de favorita. Escribe `quitarCancion(id)` en `App.jsx`: deja en `playlist` todas las canciones menos la de ese `id`. La tarjeta recibe `onQuitar` por props.
-2. Haz que `agregar` (la función del formulario de pedidos) también agregue una canción nueva a `playlist`, además de agregar el pedido a la cola. La canción nueva es un objeto con esta forma (`titulo` es lo que se pidió y `artista` es quien lo pidió):
+- Recibe al menos una prop.
+- Usa `useState` **o** pinta una lista con `.map()` (con su `key`).
+- Tiene estilos propios que siguen tu paleta.
 
-```jsx
-{
-    id: nuevo.id,
-    titulo,
-    artista: quien,
-    album: "Pedidos de la cabina",
-    duracion: "3:00",
-    portada: "/portadas/luces-del-hangar.webp",
-    anio: 2026,
-    reproducciones: 0,
-    favorita: false,
-    energia: 50,
-}
-```
+Ideas si no se te ocurre nada (puedes inventar otra):
 
-**Listo cuando:** al pedir una canción aparece una tarjeta nueva al final de la playlist y un pedido nuevo en la cola. "Quitar" en una tarjeta la elimina, y el total del encabezado baja. La tarjeta quitada no vuelve al escribir en el buscador.
+- **Canción del día:** muestra una canción de la playlist y un botón "Otra" que elige otra.
+- **Mensaje de bienvenida:** saluda al nombre que recibe por props y cambia el saludo con un botón.
+- **Contador de pedidos:** recibe `pedidos` y muestra cuántos hay y quién pidió el último.
+- **Ánimo de la cabina:** botones con estados de ánimo; al elegir uno cambia el texto y el color de una tarjeta.
 
-## Ticket 3 · Tu cabina (30 puntos)
+**Listo cuando:** el componente aparece en la app, hace lo que dice tu `README.md` y la consola no muestra errores.
 
-1. **Playlist vacía:** quita todas las canciones. Debe aparecer el mensaje "Aún no hay canciones en la estación" (ya existe en `App.jsx`) y, debajo, un botón con la clase `boton-restaurar` y el texto "Restaurar playlist". El botón deja `playlist` otra vez igual al array `canciones` importado.
-2. **Nombre de tu cabina:** crea en `App.jsx` una constante con el nombre de tu cabina y pásala por props a `Encabezado`, que lo muestra en el título en lugar de "Mixtape".
-3. **Logo:** agrega al encabezado una `img` con la clase `cabina-logo`, el atributo `alt` con texto y tu propio logo. Puedes usar `/favicon.svg` mientras no tengas uno, pero el logo entregado debe ser uno que elegiste tú. Guárdalo en `public/`.
-4. **Colores:** en `src/estilos-l4.css`, cambia los valores de `--cabina-acento` y `--cabina-fondo`.
+## Ticket 3 · Favoritas de la cabina (10 puntos)
 
-**Listo cuando:** el botón "Restaurar playlist" devuelve las cinco canciones originales con sus favoritas de origen (aunque antes hayas marcado o quitado otras). La cabina se ve distinta a la de la clase: nombre, logo y los dos colores cambiados.
+Lo que aprendiste hoy, aplicado a tu playlist.
 
-## Bonus · Solo favoritas (+10 puntos, aparte)
+1. En `App.jsx`, crea un estado `playlist` que empiece con el array `canciones`. Usa `playlist` en lugar de `canciones` en el buscador (`visibles`).
+2. Agrega a cada tarjeta un botón con la clase `boton-favorita`. Si la canción es favorita, el `className` es `boton-favorita activa` y el texto dice "Quitar de favoritas"; si no, dice "Marcar favorita".
+3. Escribe en `App.jsx` la función `alternarFavorita(id)`: cambia `favorita` al valor contrario solo en la canción con ese `id`, con `map` y un objeto copiado. La tarjeta recibe `id` y `onFavorita` por props.
+4. Muestra en el encabezado "N favoritas", calculado de `playlist` en cada pintado, sin otro estado.
 
-1. Agrega un estado booleano `soloFavoritas` y una casilla (`input type="checkbox"` controlado) con el texto "Solo favoritas", dentro de un `label` con la clase `solo-favoritas`, encima de las tarjetas.
-2. `visibles` filtra por la búsqueda y por la casilla al mismo tiempo: con la casilla marcada solo se muestran las favoritas que coinciden con el texto buscado.
+**Listo cuando:** al hacer clic, la tarjeta y su botón cambian al instante y el contador sube o baja. Con las canciones originales empieza en "3 favoritas".
 
-**Listo cuando:** con la casilla marcada y el buscador vacío ves solo las favoritas, y escribir en el buscador reduce esa lista sin desmarcar la casilla.
+## Ticket 4 · Pulido y entrega (10 puntos)
+
+1. Revisa tu cabina como si fueras un usuario nuevo: los botones se ven como botones, el texto se lee, nada se sale de su caja y los mensajes de lista vacía siguen apareciendo.
+2. La consola del navegador no muestra errores ni avisos.
+3. Despliega el proyecto en Vercel.
+4. En tu `README.md`: la temática, una captura de tu cabina, qué hace tu componente y el enlace al despliegue.
+
+**Listo cuando:** el enlace de Vercel abre tu cabina funcionando y el `README.md` tiene las cuatro cosas.
+
+## Extra para curiosos (sin puntos)
+
+- Un botón "Quitar" en cada tarjeta con `filter`, y un botón "Restaurar playlist" cuando queda vacía.
+- Una casilla "Solo favoritas" que filtre la playlist junto con el buscador.
+
+No suma puntos: es para quien quiera seguir. Nova lo menciona en la revisión.
 
 ## Reglas del hangar
 
 - Prohibido `push`, `splice`, `sort` y asignar una propiedad (`c.favorita = ...`) sobre algo que viene del estado o del array `canciones` importado.
 - Lo que se puede calcular del array no necesita otro estado.
-- La consola del navegador no puede mostrar errores ni avisos al entregar.
-- Cada `.map()` lleva su `key` con el `id` de la canción.
+- Cada `.map()` lleva su `key`.
+- Si te atascas más de 15 minutos en algo, pregunta antes de abrir el Archivo Jedi.
 
-## Rúbrica
-
-Los puntos de la tabla suman 100 (el bonus va aparte). El calificador los escala al máximo de la entrega.
+## Rúbrica (máximo 50 puntos)
 
 | Ticket | Criterio | Puntos |
 |---|---|---|
-| 1 | `playlist` es un estado inicializado con `canciones` y el buscador, el total y la condición de lista vacía lo usan | 10 |
-| 1 | `alternarFavorita` usa `map` y copia el objeto con spread, sin mutar | 10 |
-| 1 | El botón de favorita avisa al padre con `onFavorita(id)` y cambia texto y clase | 8 |
-| 1 | El contador de favoritas se calcula de `playlist`, sin estado extra | 7 |
-| 2 | `quitarCancion` usa `filter` con la condición correcta y la tarjeta llama `onQuitar(id)` | 15 |
-| 2 | `agregar` suma la canción pedida a `playlist` con un array nuevo (spread) y el pedido sigue entrando a la cola | 15 |
-| 2 | La canción nueva tiene todos los campos y su tarjeta se pinta sin errores | 5 |
-| 3 | Con la playlist vacía aparece el mensaje y "Restaurar playlist" devuelve las cinco originales | 10 |
-| 3 | Nombre de la cabina por una constante y props hacia `Encabezado` | 8 |
-| 3 | Logo propio con `alt` y los dos colores cambiados en `estilos-l4.css` | 12 |
-| Bonus | Casilla "Solo favoritas" funcionando junto con el buscador | +10 |
+| 1 | Nombre por constante y props hacia `Encabezado` | 3 |
+| 1 | Logo propio en `public/` con `alt` | 3 |
+| 1 | Paleta propia aplicada a toda la app, con buen contraste | 6 |
+| 1 | Temática clara y coherente (nombre, logo y colores van juntos) | 3 |
+| 2 | Componente nuevo en su propio archivo, importado y usado en `App.jsx` | 4 |
+| 2 | Recibe al menos una prop y la usa | 4 |
+| 2 | Usa `useState` o `.map()` con `key`, y funciona sin errores | 4 |
+| 2 | Estilos propios que siguen la paleta de la cabina | 3 |
+| 3 | `playlist` en estado, y `alternarFavorita` con `map` y spread, sin mutar | 5 |
+| 3 | Botón de favorita con `onFavorita(id)` y contador calculado | 5 |
+| 4 | Interfaz pulida: se lee, se entiende y nada se ve roto | 4 |
+| 4 | Consola sin errores ni avisos | 2 |
+| 4 | Despliegue en Vercel y `README.md` con temática, captura, componente y enlace | 4 |
+| | **Total** | **50** |
 
-**Se descuentan puntos del criterio afectado si:** hay `push`, `splice`, `sort` o asignación directa sobre el estado; hay errores o avisos en la consola; falta la `key` en alguna lista.
+**Se descuentan puntos del criterio afectado si:** hay `push`, `splice`, `sort` o asignación directa sobre el estado, o falta la `key` en alguna lista.
 
-**Entrega:** repositorio de GitHub y despliegue del proyecto, como en las tareas anteriores. El bonus se suma aparte y no cubre puntos perdidos en los tickets obligatorios.
+**Entrega:** repositorio de GitHub y enlace del despliegue.
